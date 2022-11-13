@@ -53,6 +53,41 @@ namespace TFY
             pictureBox.Size = new Size(978, 670);
 
             Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(1430, 920);
+            label = new Label();
+            TaskForm.Controls.Add(label);
+            label.Text = "Задание для лабораторной 4:\nЛексический анализатор";
+            label.Location = new Point(650, 10);
+            label.Size = new Size(300, 40);
+            pictureBox = new PictureBox();
+            pictureBox.Image = Image.FromFile("StateDiagramLab4.png");
+            TaskForm.Controls.Add(pictureBox);
+            pictureBox.Location = new Point(10, 50);
+            pictureBox.Size = new Size(1390, 909);
+
+            Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(680, 230);
+            pictureBox = new PictureBox();
+            pictureBox.Image = Image.FromFile("CodeTableLab4.png");
+            TaskForm.Controls.Add(pictureBox);
+            pictureBox.Location = new Point(10, 10);
+            pictureBox.Size = new Size(650, 200);
+
+            Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(650, 450);
+            pictureBox = new PictureBox();
+            pictureBox.Image = Image.FromFile("ExampleLab4.png");
+            TaskForm.Controls.Add(pictureBox);
+            pictureBox.Location = new Point(10, 10);
+            pictureBox.Size = new Size(680, 480);
+
+            Forms.Add(TaskForm);
         }
 
         private void New_tab(string FileName, bool NewState = false)
@@ -78,7 +113,8 @@ namespace TFY
         private void Close_tab()
         {
             RichTextBox tb = (RichTextBox)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];
-            if (tb.Modified)
+            TabOpts temp = TabsOpts[tabControl.SelectedIndex];
+            if (tb.Modified || temp.New)
             {
                 DialogResult Res = MessageBox.Show(
                     $"Желаете сохранить файл {tabControl.TabPages[tabControl.SelectedIndex].Name}?",
@@ -100,8 +136,6 @@ namespace TFY
         {
             statusStrip1.Items.Clear();
             RichTextBox tb = (RichTextBox)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];
-            //Regex regex = new Regex(@"[!.\-_A-Za-zА-Яа-я0-9]+\.(docx|doc|pdf)",
-            //
             Regex regex = new Regex(@"[^\u0022\|\\/\*\?\<\>\n ]+\.(docx|doc|pdf)",
                                     RegexOptions.Multiline);
             MatchCollection matches = regex.Matches(tb.Text);
@@ -130,31 +164,51 @@ namespace TFY
         private void Find_Lexemes()
         {
             statusStrip1.Items.Clear();
-            RichTextBox tb = (RichTextBox)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];
-            List<LexemItem> lexemes = Lexem_analyzer.Analyze(tb.Text);
-            OutputTxtBox.Clear();
-            foreach (LexemItem lexem in lexemes)
+            if (tabControl.SelectedIndex == -1)
             {
-                OutputTxtBox.Text += (lexem.StartPos + ", " + lexem.Text + " - " + lexem.Type + "\n");
+                statusStrip1.Items.Add("Нечего анализировать");
+                return;
+            };
+            RichTextBox tb = (RichTextBox)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];
+            if (tb.Text.Length == 0)
+            {
+                statusStrip1.Items.Add("Нечего анализировать");
+                return;
+            }
+            (List<Lexem>, List<Lexem>) lexemes = Lexem_analyzer.Analyse(tb.Text);
+            foreach (Lexem lexem in lexemes.Item1)
+            {
+                OutputTxtBox.Text += ("(" + lexem.pos.Item1 + ", " + lexem.pos.Item2 + ") " + lexem.id + "  \"" + lexem.val + "\"\n");
+            }
+            foreach (Lexem lexem in lexemes.Item2)
+            {
+                OutputTxtBox.Text += ("(" + lexem.pos.Item1 + ", " + lexem.pos.Item2 + ") ERROR PARSING LEXEM  \"" + lexem.val + "\"\n");
             }
         }
 
-        private void Stop_item_Click(object sender, EventArgs e)
+        private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            statusStrip1.Items.Clear();
-            if (tabControl.SelectedIndex == -1 || DoRegex == false)
-                return;
+            for (int i = 0; i < tabControl.TabCount; i++)
+            {
+                tabControl.SelectedIndex = i;
+                RichTextBox tb = (RichTextBox)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];
+                TabOpts temp = TabsOpts[tabControl.SelectedIndex];
+                if (tb.Modified || temp.New)
+                {
+                    DialogResult Res = MessageBox.Show(
+                        $"Желаете сохранить файл {tabControl.TabPages[i].Name}?",
+                        "Подтверждение",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly);
 
-            DoRegex = false;
-            statusStrip1.Items.Add($"Остановлен поиск совпадений");
-            RichTextBox tb = (RichTextBox)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];
-            int SelIndex = tb.SelectionStart;
-            tb.SelectAll();
-            SysModified = true;
-            tb.SelectionBackColor = Color.White;
-            OutputTxtBox.Clear();
-            stop_item.Visible = false;
-            tb.SelectionStart = SelIndex;
+                    if (Res == DialogResult.Yes)
+                    {
+                        SaveFile(false);
+                    }
+                }
+            }
         }
 
         #region WorkWithFiles
@@ -163,7 +217,8 @@ namespace TFY
         {
             statusStrip1.Items.Clear();
             RichTextBox tb = (RichTextBox)(tabControl.SelectedTab.Controls[0]);
-            if (As)
+            TabOpts temp = TabsOpts[tabControl.SelectedIndex];
+            if (As || temp.New)
             {
                 if (saveFileD.ShowDialog() == DialogResult.Cancel)
                     return;
@@ -175,7 +230,7 @@ namespace TFY
                 {
                     sw.Write(tb.Text);
                 }
-                statusStrip1.Items.Add($"Файл сохранен как {saveFileD.FileName}");
+                statusStrip1.Items.Add($"Файл сохранен как {saveFileD.FileName}");              
             }
             else
             {
@@ -186,7 +241,7 @@ namespace TFY
                 statusStrip1.Items.Add($"Файл сохранен как {tabControl.SelectedTab.Name}");
             }
 
-            TabOpts temp = TabsOpts[tabControl.SelectedIndex];
+            tb.Modified = false;
             temp.New = false;
             TabsOpts[tabControl.SelectedIndex] = temp;
         }
@@ -209,6 +264,12 @@ namespace TFY
                 {
                     New_tab(openFileD.FileName);
                     tabControl.SelectedTab.Controls[0].Text = sr.ReadToEnd();
+                    TabOpts temp = TabsOpts[tabControl.SelectedIndex];
+                    temp.UndoBuffer.Clear();
+                    temp.UndoBuffer.Add(tabControl.SelectedTab.Controls[0].Text);
+                    temp.New = false;
+                    temp.BufferIndex = 0;
+                    TabsOpts[tabControl.SelectedIndex] = temp;
                     statusStrip1.Items.Add($"Открыт файл {openFileD.FileName}");
                 }
             }
@@ -236,6 +297,45 @@ namespace TFY
         private void Task_item_Click(object sender, EventArgs e)
         {
             Forms[0].ShowDialog();
+        }
+
+        private void диаграммаПереходовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms[1].ShowDialog();
+        }
+
+        private void таблицаКодовToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Forms[2].ShowDialog();
+        }
+
+        private void тестовыйПримерToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Forms[3].ShowDialog();
+        }
+
+        private void Stop_item_Click(object sender, EventArgs e)
+        {
+            statusStrip1.Items.Clear();
+            if (tabControl.SelectedIndex == -1 || DoRegex == false)
+                return;
+
+            DoRegex = false;
+            statusStrip1.Items.Add($"Остановлен поиск совпадений");
+            RichTextBox tb = (RichTextBox)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];
+            int SelIndex = tb.SelectionStart;
+            tb.SelectAll();
+            SysModified = true;
+            tb.SelectionBackColor = Color.White;
+            OutputTxtBox.Clear();
+            stop_item.Visible = false;
+            tb.SelectionStart = SelIndex;
+        }
+
+        private void лексическийАнализаторToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OutputTxtBox.Clear();
+            Find_Lexemes();
         }
 
         private void SaveFile_item_Click(object sender, EventArgs e)
@@ -395,8 +495,6 @@ namespace TFY
 
             if (DoRegex)
                 Find_Regex();
-            else
-                Find_Lexemes();
         }
 
         private void Regex_Item_Click(object sender, EventArgs e)
@@ -409,31 +507,5 @@ namespace TFY
         }
 
         #endregion
-
-
-
-        private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            for (int i = 0; i < tabControl.TabCount; i++)
-            {
-                tabControl.SelectedIndex = i;
-                RichTextBox tb = (RichTextBox)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];
-                if (tb.Modified)
-                {
-                    DialogResult Res = MessageBox.Show(
-                        $"Желаете сохранить файл {tabControl.TabPages[i].Name}?",
-                        "Подтверждение",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly);
-
-                    if (Res == DialogResult.Yes)
-                    {
-                        SaveFile(false);
-                    }
-                }
-            }
-        }
     }
 }

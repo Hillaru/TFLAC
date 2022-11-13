@@ -61,13 +61,6 @@ namespace TFY
             this.Help_item = new System.Windows.Forms.ToolStripMenuItem();
             this.вызовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сканерToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.грамматикаToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.языкToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.классификацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.таблицаКодовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.диаграмаСостоянийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.тестовыйПримерToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.QuickAccessPanel = new System.Windows.Forms.ToolStrip();
             this.NewFile_strip = new System.Windows.Forms.ToolStripButton();
             this.OpenFile_strip = new System.Windows.Forms.ToolStripButton();
@@ -90,6 +83,11 @@ namespace TFY
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.лексическийАнализаторToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сканерлексическийАнализаторToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.диаграммаПереходовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.таблицаКодовToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.тестовыйПримерToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenu.SuspendLayout();
             this.QuickAccessPanel.SuspendLayout();
             this.SuspendLayout();
@@ -112,8 +110,7 @@ namespace TFY
             this.правкаToolStripMenuItem,
             this.текстToolStripMenuItem,
             this.Start_item,
-            this.Help_item,
-            this.сканерToolStripMenuItem});
+            this.Help_item});
             this.ContextMenu.Location = new System.Drawing.Point(0, 0);
             this.ContextMenu.Name = "ContextMenu";
             this.ContextMenu.Size = new System.Drawing.Size(836, 24);
@@ -242,6 +239,7 @@ namespace TFY
             // 
             this.текстToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.постановкаЗадачиToolStripMenuItem,
+            this.сканерлексическийАнализаторToolStripMenuItem,
             this.грамматикаToolStripMenuItem,
             this.классификацияГрамматикиToolStripMenuItem,
             this.методАнализаToolStripMenuItem,
@@ -257,7 +255,7 @@ namespace TFY
             // 
             this.постановкаЗадачиToolStripMenuItem.Name = "постановкаЗадачиToolStripMenuItem";
             this.постановкаЗадачиToolStripMenuItem.Size = new System.Drawing.Size(288, 22);
-            this.постановкаЗадачиToolStripMenuItem.Text = "Постановка задачи";
+            this.постановкаЗадачиToolStripMenuItem.Text = "Конечный автомат";
             this.постановкаЗадачиToolStripMenuItem.Click += new System.EventHandler(this.Task_item_Click);
             // 
             // грамматикаToolStripMenuItem
@@ -305,7 +303,8 @@ namespace TFY
             // Start_item
             // 
             this.Start_item.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Regex_Item});
+            this.Regex_Item,
+            this.лексическийАнализаторToolStripMenuItem});
             this.Start_item.Name = "Start_item";
             this.Start_item.Size = new System.Drawing.Size(46, 20);
             this.Start_item.Text = "Пуск";
@@ -339,55 +338,6 @@ namespace TFY
             this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.About_Item_Click);
-            // 
-            // сканерToolStripMenuItem
-            // 
-            this.сканерToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.грамматикаToolStripMenuItem1,
-            this.языкToolStripMenuItem,
-            this.классификацияToolStripMenuItem,
-            this.таблицаКодовToolStripMenuItem,
-            this.диаграмаСостоянийToolStripMenuItem,
-            this.тестовыйПримерToolStripMenuItem1});
-            this.сканерToolStripMenuItem.Name = "сканерToolStripMenuItem";
-            this.сканерToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.сканерToolStripMenuItem.Text = "Сканер";
-            // 
-            // грамматикаToolStripMenuItem1
-            // 
-            this.грамматикаToolStripMenuItem1.Name = "грамматикаToolStripMenuItem1";
-            this.грамматикаToolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
-            this.грамматикаToolStripMenuItem1.Text = "Грамматика";
-            // 
-            // языкToolStripMenuItem
-            // 
-            this.языкToolStripMenuItem.Name = "языкToolStripMenuItem";
-            this.языкToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.языкToolStripMenuItem.Text = "Язык";
-            // 
-            // классификацияToolStripMenuItem
-            // 
-            this.классификацияToolStripMenuItem.Name = "классификацияToolStripMenuItem";
-            this.классификацияToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.классификацияToolStripMenuItem.Text = "Классификация";
-            // 
-            // таблицаКодовToolStripMenuItem
-            // 
-            this.таблицаКодовToolStripMenuItem.Name = "таблицаКодовToolStripMenuItem";
-            this.таблицаКодовToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.таблицаКодовToolStripMenuItem.Text = "Таблица кодов";
-            // 
-            // диаграмаСостоянийToolStripMenuItem
-            // 
-            this.диаграмаСостоянийToolStripMenuItem.Name = "диаграмаСостоянийToolStripMenuItem";
-            this.диаграмаСостоянийToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.диаграмаСостоянийToolStripMenuItem.Text = "Диаграмма состояний";
-            // 
-            // тестовыйПримерToolStripMenuItem1
-            // 
-            this.тестовыйПримерToolStripMenuItem1.Name = "тестовыйПримерToolStripMenuItem1";
-            this.тестовыйПримерToolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
-            this.тестовыйПримерToolStripMenuItem1.Text = "Тестовый пример";
             // 
             // QuickAccessPanel
             // 
@@ -590,6 +540,44 @@ namespace TFY
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // лексическийАнализаторToolStripMenuItem
+            // 
+            this.лексическийАнализаторToolStripMenuItem.Name = "лексическийАнализаторToolStripMenuItem";
+            this.лексическийАнализаторToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
+            this.лексическийАнализаторToolStripMenuItem.Text = "Лексический анализатор";
+            this.лексическийАнализаторToolStripMenuItem.Click += new System.EventHandler(this.лексическийАнализаторToolStripMenuItem_Click);
+            // 
+            // сканерлексическийАнализаторToolStripMenuItem
+            // 
+            this.сканерлексическийАнализаторToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.диаграммаПереходовToolStripMenuItem,
+            this.таблицаКодовToolStripMenuItem1,
+            this.тестовыйПримерToolStripMenuItem2});
+            this.сканерлексическийАнализаторToolStripMenuItem.Name = "сканерлексическийАнализаторToolStripMenuItem";
+            this.сканерлексическийАнализаторToolStripMenuItem.Size = new System.Drawing.Size(288, 22);
+            this.сканерлексическийАнализаторToolStripMenuItem.Text = "Сканер (лексический анализатор)";
+            // 
+            // диаграммаПереходовToolStripMenuItem
+            // 
+            this.диаграммаПереходовToolStripMenuItem.Name = "диаграммаПереходовToolStripMenuItem";
+            this.диаграммаПереходовToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.диаграммаПереходовToolStripMenuItem.Text = "Диаграмма состояний";
+            this.диаграммаПереходовToolStripMenuItem.Click += new System.EventHandler(this.диаграммаПереходовToolStripMenuItem_Click);
+            // 
+            // таблицаКодовToolStripMenuItem1
+            // 
+            this.таблицаКодовToolStripMenuItem1.Name = "таблицаКодовToolStripMenuItem1";
+            this.таблицаКодовToolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
+            this.таблицаКодовToolStripMenuItem1.Text = "Таблица кодов";
+            this.таблицаКодовToolStripMenuItem1.Click += new System.EventHandler(this.таблицаКодовToolStripMenuItem1_Click);
+            // 
+            // тестовыйПримерToolStripMenuItem2
+            // 
+            this.тестовыйПримерToolStripMenuItem2.Name = "тестовыйПримерToolStripMenuItem2";
+            this.тестовыйПримерToolStripMenuItem2.Size = new System.Drawing.Size(198, 22);
+            this.тестовыйПримерToolStripMenuItem2.Text = "Тестовый пример";
+            this.тестовыйПримерToolStripMenuItem2.Click += new System.EventHandler(this.тестовыйПримерToolStripMenuItem2_Click);
+            // 
             // Main_Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -668,13 +656,11 @@ namespace TFY
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton stop_item;
-        private System.Windows.Forms.ToolStripMenuItem сканерToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem грамматикаToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem языкToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem классификацияToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem таблицаКодовToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem диаграмаСостоянийToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem тестовыйПримерToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem лексическийАнализаторToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сканерлексическийАнализаторToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem диаграммаПереходовToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem таблицаКодовToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem тестовыйПримерToolStripMenuItem2;
     }
 }
 
