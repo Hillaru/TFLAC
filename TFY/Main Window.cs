@@ -24,6 +24,7 @@ namespace TFY
         private List<Form> Forms = new List<Form>();
 
         private Lexem_analyzier Lexem_analyzer = new Lexem_analyzier();
+        private Recursive_descent RD = new Recursive_descent();
         private List<TabOpts> TabsOpts = new List<TabOpts>();
         private bool SysModified = false;
         private bool DoRegex = false;
@@ -175,14 +176,13 @@ namespace TFY
                 statusStrip1.Items.Add("Нечего анализировать");
                 return;
             }
-            (List<Lexem>, List<Lexem>) lexemes = Lexem_analyzer.Analyse(tb.Text);
-            foreach (Lexem lexem in lexemes.Item1)
+            List<Lexem> lexemes = Lexem_analyzer.Analyse(tb.Text);
+            foreach (Lexem lexem in lexemes)
             {
-                OutputTxtBox.Text += ("(" + lexem.pos.Item1 + ", " + lexem.pos.Item2 + ") " + lexem.id + "  \"" + lexem.val + "\"\n");
-            }
-            foreach (Lexem lexem in lexemes.Item2)
-            {
-                OutputTxtBox.Text += ("(" + lexem.pos.Item1 + ", " + lexem.pos.Item2 + ") ERROR PARSING LEXEM  \"" + lexem.val + "\"\n");
+                if (lexem.id != LexType.Undef)
+                    OutputTxtBox.Text += ("(" + lexem.pos.Item1 + ", " + lexem.pos.Item2 + ") " + lexem.id + "  \"" + lexem.val + "\"\n");
+                else
+                    OutputTxtBox.Text += ("(" + lexem.pos.Item1 + ", " + lexem.pos.Item2 + ") Нераспознанная лексема  \"" + lexem.val + "\"\n");
             }
         }
 
@@ -336,6 +336,13 @@ namespace TFY
         {
             OutputTxtBox.Clear();
             Find_Lexemes();
+        }
+
+        private void рекурсивныйСпускАрифметическоеВыражениеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OutputTxtBox.Clear();
+            RichTextBox tb = (RichTextBox)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];           
+            OutputTxtBox.Text = RD.Start(Lexem_analyzer.Analyse(tb.Text));
         }
 
         private void SaveFile_item_Click(object sender, EventArgs e)

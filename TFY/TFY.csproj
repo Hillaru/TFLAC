@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Lexem.cs" />
     <Compile Include="Lexem_analyzier.cs" />
+    <Compile Include="Recursive_descent.cs" />
     <Compile Include="Main Window.cs">
       <SubType>Form</SubType>
     </Compile>

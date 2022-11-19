@@ -23,13 +23,12 @@ namespace TFY
 
         private (int,int) pos;
         private (int, int) Lexem_start_pos;
-        private string[] System_symbols = { ";", ",", "//", "=" };
+        private string[] System_symbols = { ";", ",", "//", "=", "\"" };
         private string[] Brackets = { "(", ")", "{", "}", "[", "]" };
         private string[] Aryfmethic = { "+", "-", "*", "/" };
         private string[] Comparison = {"==", "<=", ">=", "!=", ">", "<" };
         private string[] Delimeters = { " ", "\t", "\0", "\r" };
         private List<Lexem> Lexemes = new List<Lexem>();
-        private List<Lexem> Errors = new List<Lexem>();
 
         private void ClearBuf()
         {
@@ -54,10 +53,9 @@ namespace TFY
             lexes.Add(new Lexem(id, pos, val));
         }
 
-        public (List<Lexem>, List<Lexem>) Analyse(string text)
+        public List<Lexem> Analyse(string text)
         {
             Lexemes = new List<Lexem>();
-            Errors = new List<Lexem>();
             pos = (1, 1); 
             int i = 0;  
             while (i <= text.Length)
@@ -206,12 +204,12 @@ namespace TFY
                     case States.ERROR:
                         Lexem_start_pos = pos;
                         Lexem_start_pos.Item2 -= Buffer.Length;
-                        AddLex(Errors, LexType.Undef, Lexem_start_pos, Buffer);
+                        AddLex(Lexemes, LexType.Undef, Lexem_start_pos, Buffer);
                         state = States.START;
                         break;
                 }
             }
-            return (Lexemes, Errors);
+            return Lexemes;
         }
     }
 }
