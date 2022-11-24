@@ -18,7 +18,7 @@ namespace TFY
 
         private string Buffer = ""; // буфер для хранения лексемы
         private char ReadenSymbol;
-        private enum States { START, NUM, SYMB, ID, ERROR, NEGATIVE, BRCKT } // состояния state-машины
+        private enum States { START, NUM, SYMB, ID, ERROR, NEGATIVE, BRCKT, ARYFM } // состояния state-машины
         private States state; // хранит текущее состояние
 
         private (int,int) pos;
@@ -84,6 +84,14 @@ namespace TFY
                             pos.Item2++;
                             state = States.NEGATIVE;
                         }
+                        else if ((SearchLex(Aryfmethic, ReadenSymbol.ToString())))
+                        {
+                            ClearBuf();
+                            AddBuf(ReadenSymbol);
+                            i++;
+                            pos.Item2++;
+                            state = States.ARYFM;
+                        }
                         else if (Char.IsLetter(ReadenSymbol))
                         {
                             ClearBuf();
@@ -135,12 +143,16 @@ namespace TFY
                         if (Char.IsDigit(ReadenSymbol))
                             state = States.NUM;
                         else
-                            state = States.SYMB;
+                            state = States.ARYFM;
                         break;
                     case States.BRCKT:
                         AddLex(Lexemes, LexType.Bracket, pos, ReadenSymbol.ToString());
                         i++;
                         pos.Item2++;
+                        state = States.START;
+                        break;
+                    case States.ARYFM:
+                        AddLex(Lexemes, LexType.Aryfmethic, pos, Buffer);
                         state = States.START;
                         break;
                     case States.NUM:
@@ -166,7 +178,10 @@ namespace TFY
                         }
                         break;
                     case States.SYMB:
-                        if (!Char.IsLetterOrDigit(ReadenSymbol) && ReadenSymbol != '\n' && !(SearchLex(Delimeters, ReadenSymbol.ToString())))
+                        if (!Char.IsLetterOrDigit(ReadenSymbol) && 
+                            ReadenSymbol != '\n' && 
+                            !(SearchLex(Delimeters, ReadenSymbol.ToString())) &&
+                            !(SearchLex(Brackets, ReadenSymbol.ToString())))
                         {
                             AddBuf(ReadenSymbol);
                             i++;
@@ -175,18 +190,13 @@ namespace TFY
                         else
                         {
                             var lex_check = (SearchLex(System_symbols, Buffer),
-                                             SearchLex(Aryfmethic, Buffer),
                                              SearchLex(Comparison, Buffer));
                             LexType temp_type;
-                            if (lex_check.Item1 == true && lex_check.Item2 == false && lex_check.Item3 == false)
+                            if (lex_check.Item1 == true && lex_check.Item2 == false)
                             {
                                 temp_type = LexType.System_symbol;
                             } 
-                            else if (lex_check.Item1 == false && lex_check.Item2 == true && lex_check.Item3 == false)
-                            {
-                                temp_type = LexType.Aryfmethic;
-                            }
-                            else if (lex_check.Item1 == false && lex_check.Item2 == false && lex_check.Item3 == true)
+                            else if (lex_check.Item1 == false && lex_check.Item2 == true)
                             {
                                 temp_type = LexType.Comparison;
                             }

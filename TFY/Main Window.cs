@@ -89,6 +89,46 @@ namespace TFY
             pictureBox.Size = new Size(680, 480);
 
             Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(200, 140);
+            label = new Label();
+            TaskForm.Controls.Add(label);
+            label.Text = "Грамматика G[E]:\nE → TA\nA → ε | + TA | - TA\nT → ОВ\nВ → ε | *ОВ | /ОВ\nО → num | id | (E)";
+            label.Location = new Point(10, 10);
+            label.Size = new Size(180, 120);
+
+            Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(200, 110);
+            label = new Label();
+            TaskForm.Controls.Add(label);
+            label.Text = "Язык:\nnum – числовая константа Ц{Ц}\nid – идентификатор Б{Б|Ц}\nБ – [A, B, …, Z], Ц – [0, 1, …, 9]";
+            label.Location = new Point(10, 10);
+            label.Size = new Size(180, 90);
+
+            Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(300, 150);
+            label = new Label();
+            TaskForm.Controls.Add(label);
+            label.Text = "Классификация грамматики:\nПРАВОЛИНЕЙНАЯ АВТОМАТНАЯ\n\nОбоснование:\nКаждоt правило грамматики имеет вид A→γB; или A→γ, где  γ∈Σ,A,B∈N";
+            label.Location = new Point(10, 10);
+            label.Size = new Size(280, 130);
+
+            Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(650, 450);
+            pictureBox = new PictureBox();
+            pictureBox.Image = Image.FromFile("ExampleLab5.png");
+            TaskForm.Controls.Add(pictureBox);
+            pictureBox.Location = new Point(10, 10);
+            pictureBox.Size = new Size(680, 480);
+
+            Forms.Add(TaskForm);
         }
 
         private void New_tab(string FileName, bool NewState = false)
@@ -314,6 +354,26 @@ namespace TFY
             Forms[3].ShowDialog();
         }
 
+        private void грамматикаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms[4].ShowDialog();
+        }
+
+        private void языкToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms[5].ShowDialog();
+        }
+
+        private void классификацияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms[6].ShowDialog();
+        }
+
+        private void тестовыйПримерToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms[7].ShowDialog();
+        }
+
         private void Stop_item_Click(object sender, EventArgs e)
         {
             statusStrip1.Items.Clear();
@@ -340,8 +400,19 @@ namespace TFY
 
         private void рекурсивныйСпускАрифметическоеВыражениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OutputTxtBox.Clear();
-            RichTextBox tb = (RichTextBox)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];           
+            if (tabControl.SelectedIndex == -1)
+            {
+                statusStrip1.Items.Add("Нечего анализировать");
+                return;
+            };
+            RichTextBox tb = (RichTextBox)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];
+            if (tb.Text.Length == 0)
+            {
+                statusStrip1.Items.Add("Нечего анализировать");
+                return;
+            }
+
+            OutputTxtBox.Clear();        
             OutputTxtBox.Text = RD.Start(Lexem_analyzer.Analyse(tb.Text));
         }
 
