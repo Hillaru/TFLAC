@@ -94,6 +94,7 @@ namespace TFY
             this.языкToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.классификацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.тестовыйПримерToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.синтаксическийАнализаторFORTRANGOTOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenu.SuspendLayout();
             this.QuickAccessPanel.SuspendLayout();
             this.SuspendLayout();
@@ -295,7 +296,8 @@ namespace TFY
             this.Start_item.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Regex_Item,
             this.лексическийАнализаторToolStripMenuItem,
-            this.рекурсивныйСпускАрифметическоеВыражениеToolStripMenuItem});
+            this.рекурсивныйСпускАрифметическоеВыражениеToolStripMenuItem,
+            this.синтаксическийАнализаторFORTRANGOTOToolStripMenuItem});
             this.Start_item.Name = "Start_item";
             this.Start_item.Size = new System.Drawing.Size(46, 20);
             this.Start_item.Text = "Пуск";
@@ -633,6 +635,13 @@ namespace TFY
             this.тестовыйПримерToolStripMenuItem.Text = "Тестовый пример";
             this.тестовыйПримерToolStripMenuItem.Click += new System.EventHandler(this.тестовыйПримерToolStripMenuItem_Click);
             // 
+            // синтаксическийАнализаторFORTRANGOTOToolStripMenuItem
+            // 
+            this.синтаксическийАнализаторFORTRANGOTOToolStripMenuItem.Name = "синтаксическийАнализаторFORTRANGOTOToolStripMenuItem";
+            this.синтаксическийАнализаторFORTRANGOTOToolStripMenuItem.Size = new System.Drawing.Size(355, 22);
+            this.синтаксическийАнализаторFORTRANGOTOToolStripMenuItem.Text = "Синтаксический анализатор (FORTRAN, GOTO)";
+            this.синтаксическийАнализаторFORTRANGOTOToolStripMenuItem.Click += new System.EventHandler(this.синтаксическийАнализаторFORTRANGOTOToolStripMenuItem_Click);
+            // 
             // Main_Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -722,6 +731,7 @@ namespace TFY
         private System.Windows.Forms.ToolStripMenuItem диагностикаИНейтрализацияОшибокToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem тестовыйПримерToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem исходныйКодПрограммыToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem синтаксическийАнализаторFORTRANGOTOToolStripMenuItem;
     }
 }
 

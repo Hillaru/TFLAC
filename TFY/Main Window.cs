@@ -25,6 +25,7 @@ namespace TFY
 
         private Lexem_analyzier Lexem_analyzer = new Lexem_analyzier();
         private Recursive_descent RD = new Recursive_descent();
+        private Goto_analyzier GA = new Goto_analyzier();
         private List<TabOpts> TabsOpts = new List<TabOpts>();
         private bool SysModified = false;
         private bool DoRegex = false;
@@ -390,6 +391,32 @@ namespace TFY
             OutputTxtBox.Clear();
             stop_item.Visible = false;
             tb.SelectionStart = SelIndex;
+        }
+
+        private void синтаксическийАнализаторFORTRANGOTOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (tabControl.SelectedIndex == -1)
+            {
+                statusStrip1.Items.Add("Нечего анализировать");
+                return;
+            };
+            RichTextBox tb = (RichTextBox)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];
+            if (tb.Text.Length == 0)
+            {
+                statusStrip1.Items.Add("Нечего анализировать");
+                return;
+            }
+
+            OutputTxtBox.Clear();
+            (List<string>, List<List<string>>) Result = GA.Start(Lexem_analyzer.Analyse(tb.Text));
+            for (int i = 0; i < Result.Item1.Count; i++)
+            {
+                if (Result.Item1[i] != "")
+                    OutputTxtBox.Text += (Result.Item1[i] + '\n');
+                foreach (string err in Result.Item2[i])
+                    OutputTxtBox.Text += (err + '\n');
+            }
+                
         }
 
         private void лексическийАнализаторToolStripMenuItem_Click(object sender, EventArgs e)
