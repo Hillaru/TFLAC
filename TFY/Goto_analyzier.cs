@@ -40,7 +40,11 @@ namespace TFY
                 res_i++;
             }
             if (Result[0] == "")
-                Errors[res_i].Add("Не обнаружено ключевое слово 'goto'");
+            {
+                Errors.Clear();
+                Errors.Add(new List<string>());
+                Errors[0].Add("Не обнаружено ключевое слово 'goto'");
+            }    
 
             return (Result, Errors);
         }
