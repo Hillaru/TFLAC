@@ -112,12 +112,12 @@ namespace TFY
             Forms.Add(TaskForm);
 
             TaskForm = new Form();
-            TaskForm.Size = new Size(300, 150);
+            TaskForm.Size = new Size(320, 210);
             label = new Label();
             TaskForm.Controls.Add(label);
-            label.Text = "Классификация грамматики:\nПРАВОЛИНЕЙНАЯ АВТОМАТНАЯ\n\nОбоснование:\nКаждоt правило грамматики имеет вид A→γB; или A→γ, где  γ∈Σ,A,B∈N";
+            label.Text = "Классификация грамматики:\nПРАВОЛИНЕЙНАЯ КОНТЕКСТНО СВОБОДНАЯ\n\nОбоснование:\nВ левых частях каждого правила стоят только одиночные нетерминалы, а каждая последующая строка получается из предыдущей путем замены по одному из правил самого правого встречающегося в строке нетерминала";
             label.Location = new Point(10, 10);
-            label.Size = new Size(280, 130);
+            label.Size = new Size(300, 190);
 
             Forms.Add(TaskForm);
 
@@ -128,6 +128,56 @@ namespace TFY
             TaskForm.Controls.Add(pictureBox);
             pictureBox.Location = new Point(10, 10);
             pictureBox.Size = new Size(680, 480);
+
+            Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(200, 345);
+            label = new Label();
+            TaskForm.Controls.Add(label);
+            label.Text = "Грамматика G[<OPERATOR>]:\n\n<OPERATOR> -> goto <LIST><EXPR>\r\n<LIST> -> (AB)  \r\nB -> e | , AB\r\nA -> label\r\n<EXPR> -> TC\r\nC -> e | + TC | - TC\r\nT -> ОD\r\nD -> e | *ОD | /ОD\r\nО -> num | id | (<EXPR>)\r\n\nЯЗЫК:\r\nlabel – метка Ц{Ц}\r\nnum – числовая константа [+|-]Ц{Ц}[.Ц{Ц}]\r\nid – идентификатор Б{Б|Ц}\r\nБ – [A, B, …, Z], Ц – [0, 1, …, 9]\r\n";
+            label.Location = new Point(10, 10);
+            label.Size = new Size(180, 325);
+
+            Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(320, 210);
+            label = new Label();
+            TaskForm.Controls.Add(label);
+            label.Text = "Классификация грамматики:\nПРАВОЛИНЕЙНАЯ КОНТЕКСТНО СВОБОДНАЯ\n\nОбоснование:\nВ левых частях каждого правила стоят только одиночные нетерминалы, а каждая последующая строка получается из предыдущей путем замены по одному из правил самого правого встречающегося в строке нетерминала";
+            label.Location = new Point(10, 10);
+            label.Size = new Size(300, 190);
+
+            Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(400, 120);
+            label = new Label();
+            TaskForm.Controls.Add(label);
+            label.Text = "Метод рекурсивного спуска — алгоритм нисходящего синтаксического анализа, реализуемый путём взаимного вызова процедур, где каждая процедура соответствует одному из правил контекстно-свободной грамматики. Применения правил последовательно поглощают лексемы, полученные от лексического анализатора";
+            label.Location = new Point(10, 10);
+            label.Size = new Size(380, 100);
+
+            Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(400, 120);
+            label = new Label();
+            TaskForm.Controls.Add(label);
+            label.Text = "Нейтрализация ошибок проводится по методу Айронса\n\nОсновная идея – по контексту без возврата отбрасывать литеры, которые привели к тупиковой ситуации (когда продолжение анализа по грамматике невозможно), и продолжать разбор.";
+            label.Location = new Point(10, 10);
+            label.Size = new Size(380, 100);
+
+            Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(350, 270);
+            pictureBox = new PictureBox();
+            pictureBox.Image = Image.FromFile("ExampleLab6.png");
+            TaskForm.Controls.Add(pictureBox);
+            pictureBox.Location = new Point(10, 10);
+            pictureBox.Size = new Size(330, 250);
 
             Forms.Add(TaskForm);
         }
@@ -373,6 +423,31 @@ namespace TFY
         private void тестовыйПримерToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Forms[7].ShowDialog();
+        }
+
+        private void грамматикаToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Forms[8].ShowDialog();
+        }
+
+        private void классификацияГрамматикиToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Forms[9].ShowDialog();
+        }
+
+        private void методАнализаToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Forms[10].ShowDialog();
+        }
+
+        private void диагностикаИНейтрализацияОшибокToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Forms[11].ShowDialog();
+        }
+
+        private void тестовыйПримерToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Forms[12].ShowDialog();
         }
 
         private void Stop_item_Click(object sender, EventArgs e)

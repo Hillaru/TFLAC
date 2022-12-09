@@ -73,7 +73,7 @@ namespace TFY
         {
             if (Lex == null)
             {
-                Errors[res_i].Add($"{Lexemes[Lexemes.Count - 1].pos} Ожидался список меток");
+                Errors[res_i].Add($"{Lexemes.Last().pos} Ожидался список меток");
                 return "<(label)>";
             }
 
@@ -115,7 +115,7 @@ namespace TFY
         {
             if (Lex == null)
             {
-                Errors[res_i].Add($"{Lexemes[Lexemes.Count - 1].pos} Ожидалось целочисленное неотрицательное значение");
+                Errors[res_i].Add($"{Lexemes.Last().pos} Ожидалось целочисленное неотрицательное значение");
                 return "<(label)>";
             }
 
@@ -211,7 +211,7 @@ namespace TFY
         {
             if (Lex == null)
             {
-                Errors[res_i].Add($"{Lexemes[Lexemes.Count-1].pos} Ожидался оператор или выражение");
+                Errors[res_i].Add($"{Lexemes.Last().pos} Ожидался оператор или выражение");
                 return "<id>";
             }
 
@@ -229,14 +229,17 @@ namespace TFY
                     {
                         GetNext();
                         var _EXPR = EXPR();
-                        if (Lex.val == ")")
+                        if (Lex != null && Lex.val == ")")
                         {
                             GetNext();
                             return (" (" + _EXPR + ") ");
                         }
                         else
                         {
-                            Errors[res_i].Add($"{Lex.pos} Пропущена закрывающая скобка");
+                            if (Lex != null)
+                                Errors[res_i].Add($"{Lex.pos} Пропущена закрывающая скобка");
+                            else
+                                Errors[res_i].Add($"{Lexemes.Last().pos} Пропущена закрывающая скобка");
                             return " (" + _EXPR + "<)> ";
                         }
                     }

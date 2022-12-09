@@ -89,12 +89,12 @@ namespace TFY
             this.методАнализаToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.диагностикаИНейтрализацияОшибокToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.тестовыйПримерToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.исходныйКодПрограммыToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.грамматикаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.языкToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.классификацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.тестовыйПримерToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.синтаксическийАнализаторFORTRANGOTOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.исходныйКодПрограммыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenu.SuspendLayout();
             this.QuickAccessPanel.SuspendLayout();
             this.SuspendLayout();
@@ -248,7 +248,8 @@ namespace TFY
             this.постановкаЗадачиToolStripMenuItem,
             this.сканерлексическийАнализаторToolStripMenuItem,
             this.рекурсивныйСпускToolStripMenuItem,
-            this.курсоваяРаботаToolStripMenuItem});
+            this.курсоваяРаботаToolStripMenuItem,
+            this.исходныйКодПрограммыToolStripMenuItem});
             this.текстToolStripMenuItem.Name = "текстToolStripMenuItem";
             this.текстToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.текстToolStripMenuItem.Text = "Текст";
@@ -565,47 +566,45 @@ namespace TFY
             this.классификацияГрамматикиToolStripMenuItem1,
             this.методАнализаToolStripMenuItem1,
             this.диагностикаИНейтрализацияОшибокToolStripMenuItem1,
-            this.тестовыйПримерToolStripMenuItem1,
-            this.исходныйКодПрограммыToolStripMenuItem1});
+            this.тестовыйПримерToolStripMenuItem1});
             this.курсоваяРаботаToolStripMenuItem.Name = "курсоваяРаботаToolStripMenuItem";
             this.курсоваяРаботаToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.курсоваяРаботаToolStripMenuItem.Text = "Курсовая работа";
+            this.курсоваяРаботаToolStripMenuItem.Text = "GOTO анализатор";
             // 
             // грамматикаToolStripMenuItem1
             // 
             this.грамматикаToolStripMenuItem1.Name = "грамматикаToolStripMenuItem1";
             this.грамматикаToolStripMenuItem1.Size = new System.Drawing.Size(288, 22);
             this.грамматикаToolStripMenuItem1.Text = "Грамматика";
+            this.грамматикаToolStripMenuItem1.Click += new System.EventHandler(this.грамматикаToolStripMenuItem1_Click);
             // 
             // классификацияГрамматикиToolStripMenuItem1
             // 
             this.классификацияГрамматикиToolStripMenuItem1.Name = "классификацияГрамматикиToolStripMenuItem1";
             this.классификацияГрамматикиToolStripMenuItem1.Size = new System.Drawing.Size(288, 22);
             this.классификацияГрамматикиToolStripMenuItem1.Text = "Классификация грамматики";
+            this.классификацияГрамматикиToolStripMenuItem1.Click += new System.EventHandler(this.классификацияГрамматикиToolStripMenuItem1_Click);
             // 
             // методАнализаToolStripMenuItem1
             // 
             this.методАнализаToolStripMenuItem1.Name = "методАнализаToolStripMenuItem1";
             this.методАнализаToolStripMenuItem1.Size = new System.Drawing.Size(288, 22);
             this.методАнализаToolStripMenuItem1.Text = "Метод анализа";
+            this.методАнализаToolStripMenuItem1.Click += new System.EventHandler(this.методАнализаToolStripMenuItem1_Click);
             // 
             // диагностикаИНейтрализацияОшибокToolStripMenuItem1
             // 
             this.диагностикаИНейтрализацияОшибокToolStripMenuItem1.Name = "диагностикаИНейтрализацияОшибокToolStripMenuItem1";
             this.диагностикаИНейтрализацияОшибокToolStripMenuItem1.Size = new System.Drawing.Size(288, 22);
             this.диагностикаИНейтрализацияОшибокToolStripMenuItem1.Text = "Диагностика и нейтрализация ошибок";
+            this.диагностикаИНейтрализацияОшибокToolStripMenuItem1.Click += new System.EventHandler(this.диагностикаИНейтрализацияОшибокToolStripMenuItem1_Click);
             // 
             // тестовыйПримерToolStripMenuItem1
             // 
             this.тестовыйПримерToolStripMenuItem1.Name = "тестовыйПримерToolStripMenuItem1";
             this.тестовыйПримерToolStripMenuItem1.Size = new System.Drawing.Size(288, 22);
             this.тестовыйПримерToolStripMenuItem1.Text = "Тестовый пример";
-            // 
-            // исходныйКодПрограммыToolStripMenuItem1
-            // 
-            this.исходныйКодПрограммыToolStripMenuItem1.Name = "исходныйКодПрограммыToolStripMenuItem1";
-            this.исходныйКодПрограммыToolStripMenuItem1.Size = new System.Drawing.Size(288, 22);
-            this.исходныйКодПрограммыToolStripMenuItem1.Text = "Исходный код программы";
+            this.тестовыйПримерToolStripMenuItem1.Click += new System.EventHandler(this.тестовыйПримерToolStripMenuItem1_Click);
             // 
             // грамматикаToolStripMenuItem
             // 
@@ -641,6 +640,12 @@ namespace TFY
             this.синтаксическийАнализаторFORTRANGOTOToolStripMenuItem.Size = new System.Drawing.Size(355, 22);
             this.синтаксическийАнализаторFORTRANGOTOToolStripMenuItem.Text = "Синтаксический анализатор (FORTRAN, GOTO)";
             this.синтаксическийАнализаторFORTRANGOTOToolStripMenuItem.Click += new System.EventHandler(this.синтаксическийАнализаторFORTRANGOTOToolStripMenuItem_Click);
+            // 
+            // исходныйКодПрограммыToolStripMenuItem
+            // 
+            this.исходныйКодПрограммыToolStripMenuItem.Name = "исходныйКодПрограммыToolStripMenuItem";
+            this.исходныйКодПрограммыToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.исходныйКодПрограммыToolStripMenuItem.Text = "Исходный код программы";
             // 
             // Main_Window
             // 
@@ -730,8 +735,8 @@ namespace TFY
         private System.Windows.Forms.ToolStripMenuItem методАнализаToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem диагностикаИНейтрализацияОшибокToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem тестовыйПримерToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem исходныйКодПрограммыToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem синтаксическийАнализаторFORTRANGOTOToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem исходныйКодПрограммыToolStripMenuItem;
     }
 }
 
