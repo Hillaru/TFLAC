@@ -92,12 +92,12 @@ namespace TFY
             Forms.Add(TaskForm);
 
             TaskForm = new Form();
-            TaskForm.Size = new Size(200, 140);
+            TaskForm.Size = new Size(200, 190);
             label = new Label();
             TaskForm.Controls.Add(label);
-            label.Text = "Грамматика G[E]:\nE → TA\nA → ε | + TA | - TA\nT → ОВ\nВ → ε | *ОВ | /ОВ\nО → num | id | (E)";
+            label.Text = "Грамматика G[E]:\nE → TA\nA → ε | + TA | - TA\nT → ОВ\nВ → ε | *ОВ | /ОВ\nО → num | id | (E)\n\nnum – числовая константа Ц{Ц}\nid – идентификатор Б{Б|Ц}\nБ – [A, B, …, Z], Ц – [0, 1, …, 9]";
             label.Location = new Point(10, 10);
-            label.Size = new Size(180, 120);
+            label.Size = new Size(180, 170);
 
             Forms.Add(TaskForm);
 
@@ -105,7 +105,7 @@ namespace TFY
             TaskForm.Size = new Size(200, 110);
             label = new Label();
             TaskForm.Controls.Add(label);
-            label.Text = "Язык:\nnum – числовая константа Ц{Ц}\nid – идентификатор Б{Б|Ц}\nБ – [A, B, …, Z], Ц – [0, 1, …, 9]";
+            label.Text = "Язык:\n L(G[E]) = {a + b; 9.231 – b * c; 65 * (b – 3.2); (34 / (2 * c) – (d + e / f)); …}";
             label.Location = new Point(10, 10);
             label.Size = new Size(180, 90);
 
@@ -135,7 +135,7 @@ namespace TFY
             TaskForm.Size = new Size(200, 345);
             label = new Label();
             TaskForm.Controls.Add(label);
-            label.Text = "Грамматика G[<OPERATOR>]:\n\n<OPERATOR> -> goto <LIST><EXPR>\r\n<LIST> -> (AB)  \r\nB -> e | , AB\r\nA -> label\r\n<EXPR> -> TC\r\nC -> e | + TC | - TC\r\nT -> ОD\r\nD -> e | *ОD | /ОD\r\nО -> num | id | (<EXPR>)\r\n\nЯЗЫК:\r\nlabel – метка Ц{Ц}\r\nnum – числовая константа [+|-]Ц{Ц}[.Ц{Ц}]\r\nid – идентификатор Б{Б|Ц}\r\nБ – [A, B, …, Z], Ц – [0, 1, …, 9]\r\n";
+            label.Text = "Грамматика G[<OPERATOR>]:\n\n<OPERATOR> -> goto <LIST><EXPR>\r\n<LIST> -> (AB)  \r\nB -> e | , AB\r\nA -> label\r\n<EXPR> -> TC\r\nC -> e | + TC | - TC\r\nT -> ОD\r\nD -> e | *ОD | /ОD\r\nО -> num | id | (<EXPR>)\r\n\nlabel – метка Ц{Ц}\r\nnum – числовая константа [+|-]Ц{Ц}[.Ц{Ц}]\r\nid – идентификатор Б{Б|Ц}\r\nБ – [A, B, …, Z], Ц – [0, 1, …, 9]";
             label.Location = new Point(10, 10);
             label.Size = new Size(180, 325);
 
@@ -178,6 +178,16 @@ namespace TFY
             TaskForm.Controls.Add(pictureBox);
             pictureBox.Location = new Point(10, 10);
             pictureBox.Size = new Size(330, 250);
+
+            Forms.Add(TaskForm);
+
+            TaskForm = new Form();
+            TaskForm.Size = new Size(620, 170);
+            pictureBox = new PictureBox();
+            pictureBox.Image = Image.FromFile("Language_lab6.png");
+            TaskForm.Controls.Add(pictureBox);
+            pictureBox.Location = new Point(10, 10);
+            pictureBox.Size = new Size(600, 150);
 
             Forms.Add(TaskForm);
         }
@@ -448,6 +458,12 @@ namespace TFY
         private void тестовыйПримерToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Forms[12].ShowDialog();
+        }
+
+
+        private void языкToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Forms[13].ShowDialog();
         }
 
         private void Stop_item_Click(object sender, EventArgs e)
