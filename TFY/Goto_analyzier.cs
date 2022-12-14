@@ -56,11 +56,17 @@ namespace TFY
                 return "";
             }
 
+            string Error_str = "";
             while (i < Lexemes.Count && Lex.val != "goto")
             {
-                Errors[res_i].Add($"{Lex.pos} Нераспознанная лексема '{Lex.val}'");
+                Error_str += Lex.val + " ";
                 GetNext();
             }
+            if (Error_str != "")
+                if (Lex != null)
+                    Errors[res_i].Add($"{Lex.pos} Некорректная цепочка '{Error_str}'");
+                else
+                    Errors[res_i].Add($"{Lexemes.Last().pos} Некорректная цепочка '{Error_str}'");
 
             if (Lex != null && Lex.val == "goto")
             {
@@ -86,14 +92,17 @@ namespace TFY
                 GetNext();
                 var _A = A();
                 var _B = B();
-                if (Lex.val != null && Lex.val == ")")
+                if (Lex != null && Lex.val == ")")
                 {
                     GetNext();
                     return (" (" + _A + _B + ") ");
                 }
                 else
                 {
-                    Errors[res_i].Add($"{Lex.pos} Пропущена закрывающая скобка");
+                    if (Lex != null)
+                        Errors[res_i].Add($"{Lex.pos} Пропущена закрывающая скобка");
+                    else
+                        Errors[res_i].Add($"{Lexemes.Last().pos} Пропущена закрывающая скобка");
                     return (" (" + _A + _B + "<)> ");
                 }
             }
@@ -102,14 +111,17 @@ namespace TFY
                 Errors[res_i].Add($"{Lex.pos} Пропущена открывающая скобка");
                 var _A = A();
                 var _B = B();
-                if (Lex.val != null && Lex.val == ")")
+                if (Lex != null && Lex.val == ")")
                 {
                     GetNext();
                     return (" <(>" + _A + _B + ") ");
                 }
                 else
                 {
-                    Errors[res_i].Add($"{Lex.pos} Пропущена закрывающая скобка");
+                    if (Lex != null)
+                        Errors[res_i].Add($"{Lex.pos} Пропущена закрывающая скобка");
+                    else
+                        Errors[res_i].Add($"{Lexemes.Last().pos} Пропущена закрывающая скобка");
                     return (" <(>" + _A + _B + "<)> ");
                 }
             }
